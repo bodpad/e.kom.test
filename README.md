@@ -4,9 +4,9 @@
     
     # Устанавливаем виртуальное окружение
     # и все необходимые для работы пакеты
-    pytnon3 -m venv venv
+    python3 -m venv venv
     source venv/bin/activate
-    pip install -r reuirements.txt
+    pip install -r requirements.txt
     
     # Запускаем tornado сервер
     python3 runserver.py
