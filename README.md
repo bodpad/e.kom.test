@@ -1,5 +1,5 @@
 ## Развертывание и запуск
-    git clone 
+    git clone https://github.com/bodpad/e.kom.test.git
     cd e.kom.test
     
     # Устанавливаем виртуальное окружение
