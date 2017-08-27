@@ -74,28 +74,26 @@ def search_form_template_name_by_post_parameters(search_params: dict):
     # поля которого совпали, хотябы один раз, с полями присланной формы
     query_conditions = [q[field_name] == field_type for field_name, field_type in search_params.items()]
     query = reduce(operator.or_, query_conditions)
-    result = db.search(query)
+    search_result = db.search(query)
 
-    if len(result) == 0:
+    if len(search_result) == 0:
         # Если ни одного шаблона формы не найдено
         return None
 
-    elif len(result) == 1:
+    elif len(search_result) == 1:
         # Если был найдет один шаблон формы,
         # значит один или более полей формы совпали,
         # в этом случае возвращаем имя шаблона формы
-        return result[0]['ftname']
+        return search_result[0]['ftname']
 
     else:
         # Если найдено больше одного шаблона формы, сравниваем каждый найденый шаблон формы
         # с  полями присланой формы, считаем количество совпавших полей и записываем в словарь.
         # {id шаблона формы: кол-во совпавших полей, ...}
-        x = {}
-        for item in result:
-            x[item.eid] = len(set(item.items() & search_params.items()))
+        result = {item.eid: len(set(item.items() & search_params.items())) for item in search_result}
 
         # Получаем id шаблона формы с максимальным кол-вом совпавших полей ...
-        eid = max(x, key=x.get)
+        eid = max(result, key=result.get)
 
         # ... находим его в бд и получаем имя
         return db.get(eid=eid)['ftname']

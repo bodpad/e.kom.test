@@ -16,7 +16,7 @@
     python3 db_init.py
     
     # ОПЦИОНАЛЬНО. Скрипт совершающий несколько тестовых POST запроса
-    python3 test_queries.py
+    python3 test_post_requests.py
     
     # ОПЦИОНАЛЬНО. Запуск тестов
     python3 -m unittest
