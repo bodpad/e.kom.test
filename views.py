@@ -1,4 +1,5 @@
 from tornado.web import RequestHandler
+import tornado
 from utils import *
 
 
@@ -8,6 +9,9 @@ class MainHandler(RequestHandler):
         """
         Входные данные - cписок полей формы со значениями
         """
+        if bool(self.request.arguments) is False:
+            # Возвращаем "Bad Request", если в запросе не передали ни одного аргумента
+            raise tornado.web.HTTPError(400)
 
         # search_params - словарь вида {'field_name': 'field_type', ...},
         # для поиска в бд подходящего шаблона формы.
